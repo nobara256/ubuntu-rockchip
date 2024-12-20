@@ -112,12 +112,6 @@ if [ "${SUITE}" == "noble" ]; then
     ) > config/archives/extra-ppas-ignore.pref.chroot
 fi
 
-# Snap packages to install
-(
-    echo "snapd/classic=stable"
-    echo "core22/classic=stable"
-    echo "lxd/classic=stable"
-) > config/seeded-snaps
 
 # Generic packages to install
 echo "software-properties-common" > config/package-lists/my.list.chroot
@@ -131,6 +125,13 @@ if [ "${PROJECT}" == "ubuntu" ]; then
         echo "ubiquity-slideshow-ubuntu"
         echo "localechooser-data"
     ) >> config/package-lists/my.list.chroot
+
+    # Snap packages to be installed only on desktop images.
+    (
+        echo "snapd/classic=stable"
+        echo "core22/classic=stable"
+        echo "lxd/classic=stable"
+    ) > config/seeded-snaps
 else
     # Specific packages to install for ubuntu server
     echo "ubuntu-server-rockchip" >> config/package-lists/my.list.chroot
